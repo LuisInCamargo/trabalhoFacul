@@ -49,18 +49,18 @@ public class Trabalho {
 
             //Processamento
             if (filtro_In.trim().equalsIgnoreCase("complemento")) {
-                imgModificada = photochopp.Operacoes.toComplement(imgOriginal);
+                imgModificada = photochopp.Operacoes.complemento(imgOriginal);
             } else {
                 if (filtro_In.trim().equalsIgnoreCase("rgb-para-cinza")) {
-                    imgModificada = photochopp.Operacoes.toshadesOfGray(imgOriginal);
+                    imgModificada = photochopp.Operacoes.rgbToCinza(imgOriginal);
                 } else {
-                    if (filtro_In.trim().equalsIgnoreCase("filtrogaussiano")) {
+                    if (filtro_In.trim().equalsIgnoreCase("filtrog-aussiano")) {
                         filter.setFilter("filtroGaussiano");
-                        imgModificada = photochopp.Operacoes.conDis2D(imgOriginal, filter);
+                        imgModificada = photochopp.Operacoes.convolution(imgOriginal, filter);
                     } else {
-                        if (filtro_In.trim().equalsIgnoreCase("bordaslimiar")) {
+                        if (filtro_In.trim().equalsIgnoreCase("bordas")) {
                             filter.setFilter("bordaslimiar");
-                            imgModificada = photochopp.Operacoes.conDis2D(imgOriginal, filter);
+                            imgModificada = photochopp.Operacoes.convolution(imgOriginal, filter);
                         } else {
                             throw new IllegalArgumentException("Argumento de filtro inválida.");
                         }
@@ -69,6 +69,7 @@ public class Trabalho {
             }
 
             ImageIO.write(imgModificada, "png", arqOut);
+
         } catch (Exception e) {
             System.err.println("Error : " + e.getMessage());
         }
